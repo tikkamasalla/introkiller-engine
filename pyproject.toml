@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "introkiller"
+version = "0.1.0"
+description = "Finds the skippable parts of TV episodes and writes out their times. Never touches your files."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "GPL-3.0-only"
+license-files = ["LICENSE"]
+dependencies = ["numpy>=1.24", "opencv-python-headless>=4.8"]
+
+[project.optional-dependencies]
+ocr = ["rapidocr-onnxruntime>=1.3"]
+dev = ["pytest>=7"]
+
+[project.scripts]
+introkiller = "introkiller.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/tikkamasalla/introkiller-engine"
+
+[tool.setuptools.packages.find]
+where = ["src"]

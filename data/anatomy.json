@@ -1,0 +1,14 @@
+[
+ {"title": "Record of Ragnarok, season 3, episode 11", "duration": 1517.184, "story_x": 0.52,
+  "segments": [
+   {"type": "recap", "start": 17.056, "end": 44.512},
+   {"type": "intro", "start": 89.715, "end": 176.843, "nudge": 40},
+   {"type": "credits", "start": 1330.996, "end": 1499.123}
+  ]},
+ {"title": "Blood-C, episode 1", "duration": 1449.033, "story_x": 0.52,
+  "segments": [
+   {"type": "intro", "start": 71.53, "end": 161.036},
+   {"type": "credits", "start": 1327.995, "end": 1418.043, "nudge": -72},
+   {"type": "preview", "start": 1418.043, "end": 1449.033}
+  ]}
+]

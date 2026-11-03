@@ -1,0 +1,75 @@
+{
+ "caption": "Six episodes of Pioneer One, drawn to scale.",
+ "episodes": [
+  {
+   "label": "E1",
+   "duration": 1896.355,
+   "segments": []
+  },
+  {
+   "label": "E2",
+   "duration": 2322.042,
+   "segments": [
+    {
+     "type": "recap",
+     "start": 35.968,
+     "end": 61.408
+    }
+   ]
+  },
+  {
+   "label": "E3",
+   "duration": 1874.733,
+   "segments": [
+    {
+     "type": "recap",
+     "start": 6.624,
+     "end": 26.496
+    },
+    {
+     "type": "intro",
+     "start": 270.02,
+     "end": 299.174
+    }
+   ]
+  },
+  {
+   "label": "E4",
+   "duration": 2026.707,
+   "segments": [
+    {
+     "type": "intro",
+     "start": 280.405,
+     "end": 299.983
+    }
+   ]
+  },
+  {
+   "label": "E5",
+   "duration": 2264.048,
+   "segments": [
+    {
+     "type": "recap",
+     "start": 4.448,
+     "end": 34.784
+    },
+    {
+     "type": "intro",
+     "start": 187.563,
+     "end": 220.888
+    }
+   ]
+  },
+  {
+   "label": "E6",
+   "duration": 2640.271,
+   "segments": [
+    {
+     "type": "intro",
+     "start": 232.983,
+     "end": 266.6
+    }
+   ]
+  }
+ ]
+}

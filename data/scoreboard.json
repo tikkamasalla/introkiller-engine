@@ -1,0 +1,805 @@
+{
+ "episodes": 123,
+ "sets": 23,
+ "reference_tiers": {
+  "named chapter marks in the same file": 86,
+  "written from the frames": 28,
+  "unnamed chapters, meaning checked on frames": 9
+ },
+ "headline": {
+  "intro": {
+   "hit": 103,
+   "miss": 11,
+   "false": 0,
+   "flagged": 13,
+   "eats_story_after_frame_check": 0
+  },
+  "credits": {
+   "hit": 85,
+   "miss": 20,
+   "false": 3,
+   "flagged": 15,
+   "eats_story_after_frame_check": 0
+  },
+  "preview": {
+   "hit": 33,
+   "miss": 24,
+   "false": 3,
+   "flagged": 3,
+   "eats_story_after_frame_check": 0
+  },
+  "recap": {
+   "hit": 1,
+   "miss": 2,
+   "false": 0,
+   "flagged": 0,
+   "eats_story_after_frame_check": 0
+  }
+ },
+ "old_version": {
+  "intro": {
+   "hit": 103,
+   "miss": 11,
+   "false": 0,
+   "flagged": 18
+  },
+  "credits": {
+   "hit": 68,
+   "miss": 37,
+   "false": 3,
+   "flagged": 10
+  },
+  "preview": {
+   "hit": 0,
+   "miss": 57,
+   "false": 0,
+   "flagged": 0
+  },
+  "recap": {
+   "hit": 1,
+   "miss": 2,
+   "false": 0,
+   "flagged": 0
+  }
+ },
+ "with_text_stage": {
+  "credits": {
+   "hit": 99,
+   "miss": 6,
+   "false": 10
+  }
+ },
+ "edges": {
+  "intro": {
+   "median_start_error_s": 0.79,
+   "median_end_error_s": 0.09,
+   "median_cover": 0.985,
+   "cover_below_90pct": 9
+  },
+  "credits": {
+   "median_start_error_s": 0.17,
+   "median_end_error_s": 0.96,
+   "median_cover": 0.989,
+   "cover_below_90pct": 7
+  },
+  "preview": {
+   "median_start_error_s": 0.29,
+   "median_end_error_s": 0.0,
+   "median_cover": 0.991,
+   "cover_below_90pct": 0
+  },
+  "recap": {
+   "median_start_error_s": 12.05,
+   "median_end_error_s": 33.44,
+   "median_cover": 0.376,
+   "cover_below_90pct": 1
+  }
+ },
+ "per_set": [
+  {
+   "set": "Beelzebub",
+   "episodes": 9,
+   "intro": {
+    "hit": 8,
+    "key": 9,
+    "false": 0,
+    "flagged": 0
+   },
+   "credits": {
+    "hit": 9,
+    "key": 9,
+    "false": 0,
+    "flagged": 0
+   },
+   "preview": {
+    "hit": 2,
+    "key": 9,
+    "false": 0,
+    "flagged": 0
+   },
+   "recap": null,
+   "old_credits": {
+    "hit": 9,
+    "key": 9,
+    "false": 0,
+    "flagged": 0
+   },
+   "old_intro": {
+    "hit": 8,
+    "key": 9,
+    "false": 0,
+    "flagged": 0
+   }
+  },
+  {
+   "set": "Humanity Has Declined",
+   "episodes": 6,
+   "intro": {
+    "hit": 6,
+    "key": 6,
+    "false": 0,
+    "flagged": 0
+   },
+   "credits": {
+    "hit": 4,
+    "key": 6,
+    "false": 0,
+    "flagged": 0
+   },
+   "preview": null,
+   "recap": null,
+   "old_credits": {
+    "hit": 4,
+    "key": 6,
+    "false": 0,
+    "flagged": 0
+   },
+   "old_intro": {
+    "hit": 6,
+    "key": 6,
+    "false": 0,
+    "flagged": 0
+   }
+  },
+  {
+   "set": "Haibane Renmei",
+   "episodes": 6,
+   "intro": {
+    "hit": 5,
+    "key": 6,
+    "false": 0,
+    "flagged": 0
+   },
+   "credits": {
+    "hit": 6,
+    "key": 6,
+    "false": 0,
+    "flagged": 1
+   },
+   "preview": null,
+   "recap": null,
+   "old_credits": {
+    "hit": 6,
+    "key": 6,
+    "false": 0,
+    "flagged": 1
+   },
+   "old_intro": {
+    "hit": 5,
+    "key": 6,
+    "false": 0,
+    "flagged": 4
+   }
+  },
+  {
+   "set": "Blood-C",
+   "episodes": 6,
+   "intro": {
+    "hit": 6,
+    "key": 6,
+    "false": 0,
+    "flagged": 0
+   },
+   "credits": {
+    "hit": 6,
+    "key": 6,
+    "false": 0,
+    "flagged": 6
+   },
+   "preview": {
+    "hit": 6,
+    "key": 6,
+    "false": 0,
+    "flagged": 0
+   },
+   "recap": null,
+   "old_credits": {
+    "hit": 6,
+    "key": 6,
+    "false": 0,
+    "flagged": 0
+   },
+   "old_intro": {
+    "hit": 6,
+    "key": 6,
+    "false": 0,
+    "flagged": 0
+   }
+  },
+  {
+   "set": "Serial Experiments Lain",
+   "episodes": 6,
+   "intro": {
+    "hit": 6,
+    "key": 6,
+    "false": 0,
+    "flagged": 0
+   },
+   "credits": {
+    "hit": 6,
+    "key": 6,
+    "false": 0,
+    "flagged": 0
+   },
+   "preview": null,
+   "recap": null,
+   "old_credits": {
+    "hit": 6,
+    "key": 6,
+    "false": 0,
+    "flagged": 0
+   },
+   "old_intro": {
+    "hit": 6,
+    "key": 6,
+    "false": 0,
+    "flagged": 0
+   }
+  },
+  {
+   "set": "Planetes",
+   "episodes": 6,
+   "intro": {
+    "hit": 5,
+    "key": 5,
+    "false": 0,
+    "flagged": 0
+   },
+   "credits": {
+    "hit": 6,
+    "key": 6,
+    "false": 0,
+    "flagged": 0
+   },
+   "preview": {
+    "hit": 4,
+    "key": 6,
+    "false": 0,
+    "flagged": 0
+   },
+   "recap": null,
+   "old_credits": {
+    "hit": 5,
+    "key": 6,
+    "false": 0,
+    "flagged": 0
+   },
+   "old_intro": {
+    "hit": 5,
+    "key": 5,
+    "false": 0,
+    "flagged": 0
+   }
+  },
+  {
+   "set": "Space Runaway Ideon",
+   "episodes": 5,
+   "intro": {
+    "hit": 5,
+    "key": 5,
+    "false": 0,
+    "flagged": 0
+   },
+   "credits": {
+    "hit": 0,
+    "key": 5,
+    "false": 0,
+    "flagged": 0
+   },
+   "preview": {
+    "hit": 0,
+    "key": 5,
+    "false": 0,
+    "flagged": 0
+   },
+   "recap": null,
+   "old_credits": {
+    "hit": 0,
+    "key": 5,
+    "false": 0,
+    "flagged": 0
+   },
+   "old_intro": {
+    "hit": 5,
+    "key": 5,
+    "false": 0,
+    "flagged": 0
+   }
+  },
+  {
+   "set": "Girls' Last Tour",
+   "episodes": 8,
+   "intro": {
+    "hit": 7,
+    "key": 7,
+    "false": 0,
+    "flagged": 0
+   },
+   "credits": {
+    "hit": 6,
+    "key": 6,
+    "false": 0,
+    "flagged": 0
+   },
+   "preview": null,
+   "recap": null,
+   "old_credits": {
+    "hit": 6,
+    "key": 6,
+    "false": 0,
+    "flagged": 0
+   },
+   "old_intro": {
+    "hit": 7,
+    "key": 7,
+    "false": 0,
+    "flagged": 0
+   }
+  },
+  {
+   "set": "Fawlty Towers",
+   "episodes": 4,
+   "intro": {
+    "hit": 0,
+    "key": 4,
+    "false": 0,
+    "flagged": 0
+   },
+   "credits": null,
+   "preview": null,
+   "recap": null,
+   "old_credits": null,
+   "old_intro": {
+    "hit": 0,
+    "key": 4,
+    "false": 0,
+    "flagged": 0
+   }
+  },
+  {
+   "set": "Red Dwarf",
+   "episodes": 4,
+   "intro": {
+    "hit": 4,
+    "key": 4,
+    "false": 0,
+    "flagged": 0
+   },
+   "credits": null,
+   "preview": null,
+   "recap": null,
+   "old_credits": null,
+   "old_intro": {
+    "hit": 4,
+    "key": 4,
+    "false": 0,
+    "flagged": 0
+   }
+  },
+  {
+   "set": "Samurai Jack",
+   "episodes": 4,
+   "intro": {
+    "hit": 4,
+    "key": 4,
+    "false": 0,
+    "flagged": 0
+   },
+   "credits": {
+    "hit": 0,
+    "key": 0,
+    "false": 3,
+    "flagged": 3
+   },
+   "preview": {
+    "hit": 0,
+    "key": 0,
+    "false": 3,
+    "flagged": 3
+   },
+   "recap": null,
+   "old_credits": {
+    "hit": 0,
+    "key": 0,
+    "false": 3,
+    "flagged": 3
+   },
+   "old_intro": {
+    "hit": 4,
+    "key": 4,
+    "false": 0,
+    "flagged": 0
+   }
+  },
+  {
+   "set": "Record of Ragnarok",
+   "episodes": 4,
+   "intro": {
+    "hit": 4,
+    "key": 4,
+    "false": 0,
+    "flagged": 4
+   },
+   "credits": {
+    "hit": 4,
+    "key": 4,
+    "false": 0,
+    "flagged": 0
+   },
+   "preview": null,
+   "recap": {
+    "hit": 1,
+    "key": 3,
+    "false": 0,
+    "flagged": 0
+   },
+   "old_credits": {
+    "hit": 2,
+    "key": 4,
+    "false": 0,
+    "flagged": 0
+   },
+   "old_intro": {
+    "hit": 4,
+    "key": 4,
+    "false": 0,
+    "flagged": 4
+   }
+  },
+  {
+   "set": "Three films",
+   "episodes": 3,
+   "intro": null,
+   "credits": {
+    "hit": 0,
+    "key": 2,
+    "false": 0,
+    "flagged": 0
+   },
+   "preview": null,
+   "recap": null,
+   "old_credits": {
+    "hit": 0,
+    "key": 2,
+    "false": 0,
+    "flagged": 0
+   },
+   "old_intro": null
+  },
+  {
+   "set": "Mobile Suit Gundam",
+   "episodes": 4,
+   "intro": {
+    "hit": 4,
+    "key": 4,
+    "false": 0,
+    "flagged": 0
+   },
+   "credits": {
+    "hit": 4,
+    "key": 4,
+    "false": 0,
+    "flagged": 0
+   },
+   "preview": null,
+   "recap": null,
+   "old_credits": {
+    "hit": 4,
+    "key": 4,
+    "false": 0,
+    "flagged": 0
+   },
+   "old_intro": {
+    "hit": 4,
+    "key": 4,
+    "false": 0,
+    "flagged": 0
+   }
+  },
+  {
+   "set": "Mononoke",
+   "episodes": 4,
+   "intro": {
+    "hit": 4,
+    "key": 4,
+    "false": 0,
+    "flagged": 0
+   },
+   "credits": {
+    "hit": 4,
+    "key": 4,
+    "false": 0,
+    "flagged": 0
+   },
+   "preview": null,
+   "recap": null,
+   "old_credits": {
+    "hit": 4,
+    "key": 4,
+    "false": 0,
+    "flagged": 0
+   },
+   "old_intro": {
+    "hit": 4,
+    "key": 4,
+    "false": 0,
+    "flagged": 0
+   }
+  },
+  {
+   "set": "Detective Conan",
+   "episodes": 4,
+   "intro": {
+    "hit": 4,
+    "key": 4,
+    "false": 0,
+    "flagged": 4
+   },
+   "credits": {
+    "hit": 0,
+    "key": 1,
+    "false": 0,
+    "flagged": 0
+   },
+   "preview": null,
+   "recap": null,
+   "old_credits": {
+    "hit": 0,
+    "key": 1,
+    "false": 0,
+    "flagged": 0
+   },
+   "old_intro": {
+    "hit": 4,
+    "key": 4,
+    "false": 0,
+    "flagged": 4
+   }
+  },
+  {
+   "set": "The Glory",
+   "episodes": 5,
+   "intro": {
+    "hit": 5,
+    "key": 5,
+    "false": 0,
+    "flagged": 5
+   },
+   "credits": {
+    "hit": 0,
+    "key": 5,
+    "false": 0,
+    "flagged": 0
+   },
+   "preview": null,
+   "recap": null,
+   "old_credits": {
+    "hit": 0,
+    "key": 5,
+    "false": 0,
+    "flagged": 0
+   },
+   "old_intro": {
+    "hit": 5,
+    "key": 5,
+    "false": 0,
+    "flagged": 5
+   }
+  },
+  {
+   "set": "Formula 1: Drive to Survive",
+   "episodes": 4,
+   "intro": null,
+   "credits": {
+    "hit": 0,
+    "key": 4,
+    "false": 0,
+    "flagged": 0
+   },
+   "preview": null,
+   "recap": null,
+   "old_credits": {
+    "hit": 0,
+    "key": 4,
+    "false": 0,
+    "flagged": 0
+   },
+   "old_intro": null
+  },
+  {
+   "set": "LOGH: Die Neue These",
+   "episodes": 12,
+   "intro": {
+    "hit": 12,
+    "key": 12,
+    "false": 0,
+    "flagged": 0
+   },
+   "credits": {
+    "hit": 12,
+    "key": 12,
+    "false": 0,
+    "flagged": 0
+   },
+   "preview": {
+    "hit": 8,
+    "key": 12,
+    "false": 0,
+    "flagged": 0
+   },
+   "recap": null,
+   "old_credits": {
+    "hit": 5,
+    "key": 12,
+    "false": 0,
+    "flagged": 2
+   },
+   "old_intro": {
+    "hit": 12,
+    "key": 12,
+    "false": 0,
+    "flagged": 1
+   }
+  },
+  {
+   "set": "Zipang",
+   "episodes": 5,
+   "intro": {
+    "hit": 5,
+    "key": 5,
+    "false": 0,
+    "flagged": 0
+   },
+   "credits": {
+    "hit": 5,
+    "key": 5,
+    "false": 0,
+    "flagged": 0
+   },
+   "preview": {
+    "hit": 5,
+    "key": 5,
+    "false": 0,
+    "flagged": 0
+   },
+   "recap": null,
+   "old_credits": {
+    "hit": 5,
+    "key": 5,
+    "false": 0,
+    "flagged": 0
+   },
+   "old_intro": {
+    "hit": 5,
+    "key": 5,
+    "false": 0,
+    "flagged": 0
+   }
+  },
+  {
+   "set": "Hell Girl",
+   "episodes": 5,
+   "intro": {
+    "hit": 5,
+    "key": 5,
+    "false": 0,
+    "flagged": 0
+   },
+   "credits": {
+    "hit": 5,
+    "key": 5,
+    "false": 0,
+    "flagged": 5
+   },
+   "preview": {
+    "hit": 0,
+    "key": 5,
+    "false": 0,
+    "flagged": 0
+   },
+   "recap": null,
+   "old_credits": {
+    "hit": 5,
+    "key": 5,
+    "false": 0,
+    "flagged": 4
+   },
+   "old_intro": {
+    "hit": 5,
+    "key": 5,
+    "false": 0,
+    "flagged": 0
+   }
+  },
+  {
+   "set": "Blood+",
+   "episodes": 5,
+   "intro": {
+    "hit": 0,
+    "key": 5,
+    "false": 0,
+    "flagged": 0
+   },
+   "credits": {
+    "hit": 4,
+    "key": 5,
+    "false": 0,
+    "flagged": 0
+   },
+   "preview": {
+    "hit": 4,
+    "key": 5,
+    "false": 0,
+    "flagged": 0
+   },
+   "recap": null,
+   "old_credits": {
+    "hit": 1,
+    "key": 5,
+    "false": 0,
+    "flagged": 0
+   },
+   "old_intro": {
+    "hit": 0,
+    "key": 5,
+    "false": 0,
+    "flagged": 0
+   }
+  },
+  {
+   "set": "Texhnolyze",
+   "episodes": 4,
+   "intro": {
+    "hit": 4,
+    "key": 4,
+    "false": 0,
+    "flagged": 0
+   },
+   "credits": {
+    "hit": 4,
+    "key": 4,
+    "false": 0,
+    "flagged": 0
+   },
+   "preview": {
+    "hit": 4,
+    "key": 4,
+    "false": 0,
+    "flagged": 0
+   },
+   "recap": null,
+   "old_credits": {
+    "hit": 0,
+    "key": 4,
+    "false": 0,
+    "flagged": 0
+   },
+   "old_intro": {
+    "hit": 4,
+    "key": 4,
+    "false": 0,
+    "flagged": 0
+   }
+  }
+ ]
+}
