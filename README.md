@@ -69,7 +69,7 @@ We tuned the engine on these same episodes, so expect lower scores on shows it h
 
 We ran two similar tools on our episodes with the same scoring. Both tests favour us, because we tuned on these episodes and the other tools had never seen them.
 
-skipmark, tested on 123 episodes, found 112 of 114 intros to our 103, and 105 of 105 credits to our 85 (99 with `--ocr`). Its results were off by more than a second 115 times, against our 31, because it often overshoots. It is built for audio series and heard only the first and last few minutes of each file.
+skipmark, tested on 123 episodes, gets far fewer skips right. Counting results that cover at least half of the real segment and are never off by more than a second, we got 90 of 114 intros to its 74, and 70 of 105 credits to its 40. We found 33 of 57 previews to its 3. Its results were off by more than a second 115 times, against our 31. It does touch more segments, 112 intros and 105 credits, against our 109 with `--themes` and 99 with `--ocr`, but it often overshoots into the episode. It is built for audio series and heard only the first and last few minutes of each file.
 
 Media Preview Generator, tested on 31 episodes, found 20 of 27 intros to our 27, and 18 of 26 credits to our 16 (25 with `--ocr`). Its results were off by more than a second 24 times, against our 10. It ran without the chapters and online sources it normally uses.
 

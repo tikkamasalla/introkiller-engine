@@ -149,7 +149,7 @@ skipmark ran on all 123 episodes. It is built for audio series, and here it hear
 | Segments more than 1.0 s outside the reference | 115 | 31 |
 | Median and 90th percentile edge error | 1.07 s, 62.07 s | 0.34 s, 2.32 s |
 
-skipmark also returned 69 "ads", and 26 of them were really intros, credits or previews under the wrong name. It beat us on Fawlty Towers intros, 3 of 4 against our 0, and on Blood+ intros, 5 of 5 against our 0, though most of those run past the real edges. It also returns something for credits on sets where we return nothing.
+skipmark also returned 69 "ads", and 26 of them were really intros, credits or previews under the wrong name. It beat our default run on Fawlty Towers intros, 3 of 4 against our 0, and on Blood+ intros, 5 of 5 against our 0, though most of those run past the real edges. With `--themes` we now find all 5 Blood+ intros. It also returns something for credits on sets where we return nothing.
 
 Media Preview Generator ran on 31 episodes with its own test harness, without chapters or online sources, so this tests its detectors alone. Its High tier publishes nothing without a second source, so the table shows its Medium tier. It saw 3 or 4 episodes per show, while some of our results come from runs with more episodes of the same show.
 
