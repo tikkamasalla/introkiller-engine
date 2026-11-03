@@ -40,6 +40,9 @@
      "wrong": 15,
      "half_covered": 82,
      "half_covered_no_wrong": 70
+    },
+    "introkiller_with_ocr": {
+     "hit": 99
     }
    },
    "preview": {
@@ -136,6 +139,14 @@
     "wrong_raw": 0,
     "wrong_adjusted": 0,
     "median_start_s": 0.13
+   },
+   "introkiller_with_ocr": {
+    "hit": 25,
+    "added_start_late_s": [
+     0.3,
+     124.0
+    ],
+    "note": "error rows are for the default run only"
    }
   },
   "introkiller_preview": {
