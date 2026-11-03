@@ -1,0 +1,150 @@
+{
+ "note": "Both tests favour IntroKiller Engine: it was tuned on these episodes, the others never saw them.",
+ "skipmark": {
+  "episodes": 123,
+  "settings": "defaults; heard only the cached first and last 5 minutes or so of each file, padded with silence",
+  "by_type": {
+   "intro": {
+    "key": 114,
+    "skipmark": {
+     "hit": 112,
+     "miss": 2,
+     "false": 6,
+     "wrong": 43,
+     "half_covered": 105,
+     "half_covered_no_wrong": 74
+    },
+    "introkiller": {
+     "hit": 103,
+     "miss": 11,
+     "false": 0,
+     "wrong": 13,
+     "half_covered": 103,
+     "half_covered_no_wrong": 90
+    }
+   },
+   "credits": {
+    "key": 105,
+    "skipmark": {
+     "hit": 105,
+     "miss": 0,
+     "false": 11,
+     "wrong": 63,
+     "half_covered": 77,
+     "half_covered_no_wrong": 40
+    },
+    "introkiller": {
+     "hit": 85,
+     "miss": 20,
+     "false": 3,
+     "wrong": 15,
+     "half_covered": 82,
+     "half_covered_no_wrong": 70
+    }
+   },
+   "preview": {
+    "key": 57,
+    "skipmark": {
+     "hit": 3,
+     "miss": 54,
+     "false": 0,
+     "wrong": 0
+    },
+    "introkiller": {
+     "hit": 33,
+     "miss": 24,
+     "false": 3,
+     "wrong": 3
+    }
+   },
+   "recap": {
+    "key": 3,
+    "skipmark": {
+     "hit": 0,
+     "miss": 3,
+     "false": 9,
+     "wrong": 9
+    },
+    "introkiller": {
+     "hit": 1,
+     "miss": 2,
+     "false": 0,
+     "wrong": 0
+    }
+   }
+  },
+  "wrong_total": {
+   "skipmark": 115,
+   "introkiller": 31
+  },
+  "seconds_outside_every_reference_segment": {
+   "skipmark": 1236,
+   "introkiller": 156
+  },
+  "edge_error_median_p90_s": {
+   "skipmark": [
+    1.07,
+    62.07
+   ],
+   "introkiller": [
+    0.34,
+    2.32
+   ]
+  },
+  "skipmark_ads": {
+   "returned": 69,
+   "really_intro_credits_or_preview": 26,
+   "seconds_outside_reference": 700
+  }
+ },
+ "media_preview_generator": {
+  "episodes": 31,
+  "settings": "its markers_eval harness, shipped settings, chapters stripped, online sources off, Medium tier; High tier published nothing",
+  "intro": {
+   "key": 27,
+   "mpg": {
+    "hit": 20,
+    "miss": 7,
+    "false": 0,
+    "wrong_raw": 13,
+    "wrong_adjusted": 7,
+    "median_start_s": 1.01
+   },
+   "introkiller": {
+    "hit": 27,
+    "miss": 0,
+    "false": 0,
+    "wrong_raw": 10,
+    "wrong_adjusted": 0,
+    "median_start_s": 0.79
+   }
+  },
+  "credits": {
+   "key": 26,
+   "mpg": {
+    "hit": 18,
+    "miss": 8,
+    "false_by_reference": 5,
+    "wrong_raw": 11,
+    "wrong_adjusted": 5,
+    "median_start_s": 19.0
+   },
+   "introkiller": {
+    "hit": 16,
+    "miss": 10,
+    "false": 0,
+    "wrong_raw": 0,
+    "wrong_adjusted": 0,
+    "median_start_s": 0.13
+   }
+  },
+  "introkiller_preview": {
+   "key": 9,
+   "hit": 5
+  },
+  "introkiller_recap": {
+   "key": 3,
+   "hit": 1
+  }
+ }
+}

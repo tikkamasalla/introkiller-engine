@@ -187,8 +187,8 @@ The method here is not unique, and it would be silly to claim it. Matching theme
 | Plex ([intros](https://support.plex.tv/articles/skip-content/), [credits](https://support.plex.tv/articles/credits-detection/)) | yes, plus Plex Pass | yes | yes | not listed | not listed | yes, [for credits](https://www.mactrast.com/2023/02/plex-now-allows-viewers-to-skip-the-credits-at-the-end-of-shows-and-movies-with-a-click-of-the-remote/) | yes, for credits | credits around 93% per [staff](https://forums.plex.tv/t/credit-detection-making-mistakes/831210), test set not described |
 | [Emby](https://emby.media/support/articles/Intro-Skip.html) | yes, plus Premiere | yes | [plugins only](https://emby.media/community/topic/145091-plugin-embycredits-detect-end-credits-and-add-auto-skip/) | not listed | not listed | not published | not listed | not published |
 | [Jellyfin Intro Skipper](https://github.com/intro-skipper/intro-skipper) | yes | yes | yes | partial: [chapters, opt-in subtitles or credits end](https://github.com/intro-skipper/intro-skipper/blob/12.0/docs/analysis.md) | yes | yes | partial | not published |
-| [Media Preview Generator](https://github.com/stevezau/media_preview_generator) | yes, Docker feeding servers | yes | yes | from chapters or online databases | same | partial | yes | yes, totals |
-| [skipmark](https://github.com/Rakshit-gen/skipmark) | no | yes | yes | yes | yes | no, audio series | no | no, [synthetic shows](https://github.com/Rakshit-gen/skipmark#limits) |
+| [Media Preview Generator](https://github.com/stevezau/media_preview_generator) | yes, Docker feeding servers | yes | yes | from chapters or online databases | same | partial | yes | yes, totals; ours below |
+| [skipmark](https://github.com/Rakshit-gen/skipmark) | no | yes | yes | yes | yes | no, audio series | no | its own [synthetic shows](https://github.com/Rakshit-gen/skipmark#limits); ours below |
 | [SkipForge](https://github.com/jamieelliston/skipforge) | Docker web app | partial: start to a marker image | yes, marker image | no | no | yes | no | not published |
 | [recurring-content-detector](https://github.com/nielstenboom/recurring-content-detector) | no, Python or Docker | yes | yes | yes | yes | yes, picture only | no | yes, totals on 80 files |
 | Hand marking, the streaming-service way | no | yes | yes | yes | yes | a person | a person | not published |
@@ -198,12 +198,41 @@ Here is where others beat us, plainly. Plex and Emby are built in: press a butto
 
 This project exists because of the gaps people keep describing. One Plex user found that [the skip button goes missing](https://forums.plex.tv/t/intro-credit-skip-problems-and-a-feature-request/835342) when a preview follows the credits. [Another reported](https://forums.plex.tv/t/credit-detection-making-mistakes/831210) that on animated shows the credit markers were wrong in "easily more than half the episodes", in the same thread where Plex staff put credits at around 93% on their own test set. Both can be true, and neither is a measurement of Plex on our episodes, which we do not have.
 
-The closest thing to a head-to-head is Media Preview Generator's own [evaluation notes](https://github.com/stevezau/media_preview_generator/blob/dev/tools/markers_eval/README.md). These are different episodes and different rules, so read them side by side, not as a contest. Its figures are the bars its test harness must clear, and neither column is a win.
+### Two rivals, on our episodes
 
-| | IntroKiller Engine | Media Preview Generator |
-|---|---|---|
-| Intros | 103 found, 11 missed, on 114 reference intros. 13 flagged at 1.0 s, none eating story on frames. | 91 useful, 12 wrong, 15 missed on 118 episodes. Useful means the end within 5 s and the start within 15 s of chapters. |
-| Credits | 85 of 105 by matching, 99 of 105 with text. | 59 of 80 within 10 s by text alone, at most 1 early, on 40 movies and 40 TV files. |
+We ran two of these on our test episodes, with our scorer unchanged and online sources off. Both tests favour us, because we tuned on these episodes and the others never saw them. Read the margins as an upper limit, not a blind result. The numbers are in [data/head_to_head.json](data/head_to_head.json).
+
+**skipmark, all 123 episodes, default settings.** It is built for audio series, and here it heard only the first and last 5 minutes or so of each file, padded with silence to full length.
+
+| | skipmark | IntroKiller Engine |
+|---|---:|---:|
+| Intros: returned, of 114 | 112 | 103 |
+| Intros: covering at least half the reference | 105 | 103 |
+| Intros: covering at least half, with no wrong skip | 74 | 90 |
+| Credits: returned, of 105 | 105 | 85 |
+| Credits: covering at least half the reference | 77 | 82 |
+| Credits: covering at least half, with no wrong skip | 40 | 70 |
+| Previews, of 57 | 3 | 33 |
+| Recaps, of 3 | 0, plus 9 false | 1 |
+| Segments more than 1.0 s outside the reference | 115 | 31 |
+| Seconds landing outside every reference segment | 1236 | 156 |
+| Median and 90th percentile edge error | 1.07 s, 62.07 s | 0.34 s, 2.32 s |
+
+The 156 s is the raw figure, before the frame checks described in the scoreboard, and skipmark's results did not get those checks. It also returned 69 "ads", which added 700 s outside the reference, and 26 of them were really intros, credits or previews under the wrong name. Where it beat us: Fawlty Towers intros, 3 of 4 against our 0, and Blood+ intros, 5 of 5 against our 0, though most of those run past the real edges. It also returns something for credits on sets where we return nothing.
+
+**Media Preview Generator, 31 episodes, using its own test harness.** Chapters were stripped and online sources were off, so this tests its detectors, not the whole product, which normally has those sources to lean on. Without a second source its High tier publishes nothing, so the row below is its Medium tier. It saw 3 or 4 episodes per show, while some of our results come from runs with more episodes of the same show.
+
+| | Media Preview Generator | IntroKiller Engine |
+|---|---:|---:|
+| Intros found, of 27 | 20 | 27 |
+| Intros wrong by more than 1.0 s, after known reference errors | 7 | 0 |
+| Intro median start error | 1.01 s | 0.79 s |
+| Credits found, of 26 | 18 | 16 |
+| Credits wrong by more than 1.0 s, after known reference errors | 5 | 0 |
+| Credits median start error | 19.0 s | 0.13 s |
+| Previews and recaps | not a feature | 5 of 9, 1 of 3 |
+
+It won credits coverage, including all 3 episodes each of *The Glory*, *Drive to Survive* and *Ideon*, where we found nothing. It also found 5 real credit rolls that our reference leaves out, on *Red Dwarf* and *Detective Conan*. We counted those for it rather than as false results, and we found none of them. Its own [evaluation notes](https://github.com/stevezau/media_preview_generator/blob/dev/tools/markers_eval/README.md) report 91 useful, 12 wrong and 15 missed intros on 118 episodes, and 59 of 80 credits within 10 s, on its own files and looser rules.
 
 The rest of what we compared: [needle](https://github.com/aksiksi/needle), [Skiptro](https://github.com/MikeSiLVO/skiptro-releases), [AniChapters](https://github.com/56cla/AniChapters), [iina-skip-intro](https://github.com/pparanoiidd/iina-skip-intro), [ScenePass](https://github.com/lynxstrike/ScenePass.repo), [EmbyCredits](https://github.com/yocksers/EmbyCredits), [Kodi Intro Skipper](https://github.com/CvH/kodi-intro-skipper), [Skip-emby](https://github.com/dandan658/Skip-emby), [intro-skipper-node](https://github.com/GOvEy1nw/intro-skipper-node), [Mydia](https://github.com/getmydia/mydia), [analyzer](https://github.com/zaentrum/analyzer), [contentDetectron](https://github.com/fertlopus/contentDetectron), [end-credits-detection](https://github.com/thiago-franco/end-credits-detection), [Credit Scout](https://github.com/PatrickKalkman/credit-scout), [credroll](https://github.com/debrup416/credroll), [Content-Seperator](https://github.com/dhruv7539/Content-Seperator), [series-player](https://github.com/althropic/series-player), [plex-credits-detect](https://github.com/cjmanca/plex-credits-detect) (retired) and [Jellyfin Media Analyzer](https://github.com/endrl/jellyfin-plugin-media-analyzer) (archived).
 
@@ -231,9 +260,9 @@ Scan a season nobody has covered, open the edges yourself, and submit what holds
 
 ## Limits
 
-It needs at least two episodes of a season, and the set should be at least three for full strength. It finds what repeats, so credits with a different song or card order per episode are missed unless `--ocr` catches them. Recaps are weak, and a narrated recap is invisible. An intro that crosses the 5-minute mark can be cut short at it, as the demo shows. Films scored 0 of 2 on credits, so this is a TV tool. Files are safer than URLs: one slow read from a remote server once reported a 37-minute episode as 5 minutes long. Previews can be wrong in a harmless-looking way, so treat them as a button in anything you build. The scored runs and the demo ran on Windows with FFmpeg 8. The tests also pass on Linux (Ubuntu under WSL, Python 3.14, FFmpeg 7). macOS is untested.
+It needs at least two episodes of a season, and the set should be at least three for full strength. It finds what repeats, so credits with a different song or card order per episode are missed unless `--ocr` catches them. Recaps are weak, and a narrated recap is invisible. An intro that crosses the 5-minute mark can be cut short at it, as the demo shows. Films scored 0 of 2 on credits, so this is a TV tool. The Kodi EDL follows the documented format, but we have not played one in Kodi itself. Files are safer than URLs: one slow read from a remote server once reported a 37-minute episode as 5 minutes long. Previews can be wrong in a harmless-looking way, so treat them as a button in anything you build. The scored runs and the demo ran on Windows with FFmpeg 8. The tests also pass on Linux (Ubuntu under WSL, Python 3.14, FFmpeg 7). macOS is untested.
 
-On the roadmap, in rough order: a recap rule that does not eat story, a fix for that 5-minute edge, and a public, shareable test set so that you can check our numbers yourself.
+On the roadmap, in rough order: a recap rule that does not eat story, a fix for that 5-minute edge, finding out why we refuse the Fawlty Towers and Blood+ intros that skipmark finds, and a public, shareable test set so that you can check our numbers yourself.
 
 ## Licence and credits
 
