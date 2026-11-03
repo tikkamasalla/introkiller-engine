@@ -67,13 +67,43 @@ We tuned the engine on these same episodes, so expect lower scores on shows it h
 
 ## Comparison with other tools
 
-We ran two similar tools on our episodes with the same scoring. Both tests favour us, because we tuned on these episodes and the other tools had never seen them.
+We tested three similar tools on our episodes with the same scoring. Every test favours us, because we tuned on these episodes and the other tools had never seen them.
 
-skipmark, tested on 123 episodes, gets far fewer skips right. Counting results that cover at least half of the real segment and are never off by more than a second, we got 90 of 114 intros to its 74, and 70 of 105 credits to its 40. We found 33 of 57 previews to its 3. Its results were off by more than a second 115 times, against our 31. It does touch more segments, 112 intros and 105 credits, against our 109 with `--themes` and 99 with `--ocr`, but it often overshoots into the episode. It is built for audio series and heard only the first and last few minutes of each file.
+### skipmark, 123 episodes
 
-Media Preview Generator, tested on 31 episodes, found 20 of 27 intros to our 27, and 18 of 26 credits to our 16 (25 with `--ocr`). Its results were off by more than a second 24 times, against our 10. It ran without the chapters and online sources it normally uses.
+| | skipmark | IntroKiller Engine |
+|---|---:|---:|
+| Intros skipped correctly, of 114 | 74 | **90** |
+| Credits skipped correctly, of 105 | 40 | **70** |
+| Previews found, of 57 | 3 | **33** |
+| Results off by more than 1 s | 115 | **31** |
+| Intros touched, of 114 | **112** | 103, or 109 with `--themes` |
+| Credits touched, of 105 | **105** | 85, or 99 with `--ocr` |
 
-We also tested ScenePass v0.9.5, a closed-source tool, on the same 31 episodes as Media Preview Generator. By default it holds every result for your review and applies none. Counting held results, it found 25 of 27 intros to our 27, with 1 wrong skip to our 0. It won on recaps, 3 of 3 to our 1 of 3, though only 3 recaps were tested and it also produced 5 false recaps to our 0. We tuned on these episodes and ScenePass did not, so the test favours us.
+A correct skip covers at least half of the real segment and is never off by more than a second. skipmark touches more segments but often overshoots into the episode. It is built for audio series and heard only the first and last few minutes of each file.
+
+### Media Preview Generator, 31 episodes
+
+| | Media Preview Generator | IntroKiller Engine |
+|---|---:|---:|
+| Intros found, of 27 | 20 | **27** |
+| Credits found, of 26 | 18 | 16, or **25** with `--ocr` |
+| Results off by more than 1 s | 24 | **10** |
+| Median error at the start of credits | 19 s | **0.13 s** |
+
+It ran without the chapters and online sources it normally uses. The error rows are for our default run, without `--ocr`.
+
+### ScenePass v0.9.5, 31 episodes
+
+| | ScenePass, default settings | ScenePass, counting results held for review | IntroKiller Engine |
+|---|---:|---:|---:|
+| Intros found, of 27 | 0 | 25 | **27** |
+| Wrong intro skips | 0 | 1 | 0 |
+| Recaps found, of 3 | 0 | **3** | 1 |
+| False recaps | 0 | 5 | 0 |
+| Wrong recap results | 0 | 8 | 0 |
+
+ScenePass is closed source. By default it holds every result for your review and applies none, so the middle column shows what it would do if you accepted them all. Its recap win comes from only 3 recaps, which is a small sample.
 
 If you use Plex, Emby or Jellyfin, start with the tools built for them. Plex and Emby include this feature, and [Intro Skipper](https://github.com/intro-skipper/intro-skipper) and [Media Preview Generator](https://github.com/stevezau/media_preview_generator) add a skip button to your server. This engine does not. Use it when you want the times themselves, for mpv, Kodi, your own player or a database. The [Stremio patches](https://github.com/tikkamasalla/stremio-morphe-patches) already use them.
 
