@@ -87,6 +87,8 @@ If you use Plex, Emby or Jellyfin, start with the tools built for them. Plex and
 
 The engine needs at least two episodes of a season, and three is better. Without `--ocr`, it misses credits with different music in every episode. It cuts short intros that cross the 5-minute mark, and it mostly fails on films. We have not tested the EDL files in Kodi itself, or run the engine on macOS.
 
+When a show has too few episodes for the main pipeline, use --themes SLUG to try its official songs. The engine fetches that show only from AnimeThemes.moe, fills only types the main pass missed, and trims 2 seconds from each end. On 123 episodes it adds 8 segments. The main pipeline finds 103 of 114 intros and 85 of 105 credits. With themes it finds 109 intros and 85 credits. It covers anime only, needs network and local cache, handles one show per run, and finds less alone than the main pipeline.
+
 [docs/DETAILS.md](docs/DETAILS.md) has the full scoreboard, the Pioneer One test, the other tools we looked at and more mistakes.
 
 ## Licence

@@ -44,6 +44,8 @@ We tuned the engine on these same episodes, so this is a development score and n
 
 With `--ocr`, credits rise from 85 to 99 of 105. It also adds 7 credit rolls on episodes whose reference lists no credits. They are real on frames, though the rules score them as false. Text starts run late, up to about two minutes on *The Glory*, which errs on the safe side.
 
+When a season has too few episodes for the main pipeline, pass --themes SLUG with the AnimeThemes slug. The engine fetches only that show from AnimeThemes.moe over GraphQL, caches the songs, and tries openings where intro is missing and endings where credits are missing. A result is kept only if it passes a correlation check, which produced no real false matches across 2,200 pairs from different shows and 648 regions within the same shows. It is then trimmed 2 seconds at each end. It never replaces a main result. On 123 episodes the main pass finds 103 of 114 intros and 85 of 105 credits. With themes it finds 109 intros and 85 credits, adding 8 segments. Blood+ intros go from 0 of 5 to 5 of 5. The 2 added credits are real endings missing from the reference. Alone it finds 82 intros and 80 credits with no real wrong results. It is anime-only, needs network and local cache, handles one show per run, and finds less alone than the main pipeline.
+
 <details>
 <summary>Every set, including the zeros</summary>
 <picture>

@@ -1,0 +1,19 @@
+"""Shared settings for the AnimeThemes backup stage. All gates live here."""
+SR = 8000
+BAND_LO = 80.0
+BAND_HI = 1500.0
+WIN_S = 10.0
+HOP_S = 2.0
+SPEEDS = (1.0, 0.95904)
+MED_TH = 0.82
+HI_TH = 0.88
+HI_N = 2
+MIN_WINS = 5
+SPAN_S = 45.0
+JITTER_S = 0.05
+SILENCE_DB = -50.0
+MASK_TAIL_OP_S = 35.0
+MAX_CAND = 4
+STEP_S = 0.025
+UA = "ThemeMatchTest/0.1 (anime intro/credits test tool; local test; 1rps polite)"
+API_DELAY_S = 1.2

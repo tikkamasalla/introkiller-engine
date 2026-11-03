@@ -10,7 +10,7 @@ import time
 import urllib.parse
 from pathlib import Path
 
-from . import CLI_NAME, DISPLAY_NAME, __version__, formats, media, pipeline
+from . import CLI_NAME, DISPLAY_NAME, __version__, formats, media, pipeline, themes_stage
 
 VIDEO = {".mkv", ".mp4", ".m4v", ".avi", ".mov", ".webm", ".ts", ".m2ts", ".mpg", ".mpeg", ".wmv", ".ogv"}
 FORMATS = ("json", "edl", "mpv", "chapters")
@@ -149,6 +149,17 @@ def scan(a):
         for e, r in zip(eps, results):
             if a.ocr:
                 text_credits(r, e["spec"], cache)
+            if a.themes:
+                try:
+                    added = themes_stage.fill_gaps(
+                        e["spec"], r["episode"], themes_stage.ep_no(r["episode"]),
+                        a.themes, r["segments"], cache, os.path.join(base_cache, "themes"))
+                except Exception as ex:
+                    r["rejected"].append({"kind": "themes", "reason": "theme backup skipped: %s" % ex})
+                    added = []
+                for seg in added:
+                    r["segments"].append(seg)
+                r["segments"].sort(key=lambda s: s["start"])
             with open(os.path.join(details, r["episode"] + ".json"), "w", encoding="utf-8", newline="\n") as f:
                 json.dump(r, f, indent=1, ensure_ascii=False)
             if r["segments"]:
@@ -180,6 +191,12 @@ def build_parser():
     p.add_argument("--out", help="output folder (default: skip-times inside the scanned folder)")
     p.add_argument("--format", default="json", help="comma separated: json, edl, mpv, chapters (default: json)")
     p.add_argument("--ocr", action="store_true", help="also read on-screen text where no credits were found (needs the ocr extra)")
+    p.add_argument("--themes", metavar="SLUG",
+                   help="fill gaps with official anime opening and ending themes from AnimeThemes.moe "
+                        "(GraphQL API, at most 90 requests per minute, cached locally; only this show is fetched, "
+                        "never a bulk download). SLUG is the AnimeThemes anime slug for the season. "
+                        "A theme result is used only for intro or credits the main pass did not find, "
+                        "trimmed 2 s at each end. Anime only.")
     p.add_argument("--recap", action="store_true", help="also look for recaps that replay earlier audio (decodes whole episodes)")
     p.add_argument("--cache", help="keep decoded windows in this folder, for faster repeat runs")
     p.add_argument("--keep-cache", action="store_true", help="do not delete the default cache folder at the end")
