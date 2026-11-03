@@ -18,7 +18,7 @@ import time
 
 import numpy as np
 
-from . import align, edges, media, preview, recap, visual
+from . import align, edges, media, preview, recap_lanes, visual
 
 SR = media.SR
 QUIET = False
@@ -63,7 +63,7 @@ CFG = {
     "vis_window": 300.0,                 # seconds from the start hashed for the visual fallback
     "vis_stride": 2,                     # every n-th frame is compared
     "vis_tight": 1.0, "vis_min_len": 8.0, "vis_gap": 1.0, "vis_fill": 0.85, "vis_mad_med": 5.0, "vis_mad_p90": 12.0,
-    "recap": False,                      # optional stage: needs the FULL audio of every other episode
+    "recap": False,                      # optional: card lane needs OCR, replay lane needs whole earlier episodes
 }
 
 
@@ -860,30 +860,38 @@ class Season:
 
     # ------------------------------------------------------------------ optional: recap
     def find_recaps(self):
-        """Recap = head region (before the first intro, max 300 s) whose audio replays ONE other episode."""
-        full = {}
+        """Combined rule: full-replay audio first, Previously card as fallback.
+
+        The replay lane needs whole earlier episodes and returns None when
+        none are available. The card lane needs OCR and skips cleanly without
+        it. The first episode has no earlier episode and reports no recap.
+        """
         for e in self.eps:
-            parts, t = [], 0.0
-            while t < e.D - 1e-3:
-                parts.append(e.src.audio(t, min(e.D, t + 300.0)))
-                t += 300.0
-            full[e.name] = np.concatenate(parts)
-        for e in self.eps:
-            if e.idx == 0:   # a recap can only replay an EARLIER episode; indexing future episodes marks original story
+            if e.idx == 0:
                 continue
             intro = [g for g in e.segments if g["type"] == "intro"]
-            region = min(intro[0]["start"] if intro else 240.0, 300.0)
-            if region < 12.0:
+            intro_start = intro[0]["start"] if intro else None
+            earlier = [p.src for p in self.eps[:e.idx]]
+            try:
+                r = recap_lanes.combined_recap(e.src, earlier, intro_start)
+            except Exception:
                 continue
-            idx = recap.Index({p.name: full[p.name] for p in self.eps[:e.idx]})
-            r = recap.find_recap(full[e.name][:int(region * SR)], idx, region)
             if r:
+                lanes = r.get("lanes", [])
+                method = "recap-full-replay" if "full-replay" in lanes else "recap-card"
+                gates = {"lane": r.get("lane"), "lanes": lanes}
+                if "sources" in r:
+                    gates["sources"] = r["sources"]
+                if "places" in r:
+                    gates["places"] = r["places"]
+                if "matched_frac" in r:
+                    gates["matched_frac"] = r["matched_frac"]
+                if "card_at" in r:
+                    gates["card_at"] = r["card_at"]
                 e.segments.append({"type": "recap", "start": round(r["start"], 3), "end": round(r["end"], 3),
-                                   "length": round(r["end"] - r["start"], 3), "confidence": 0.7, "method": "audio-landmarks",
-                                   "gates": {"sources": r["sources"], "matched_frac": round(r["matched_frac"], 3), "votes_min": r["votes_min"],
-                                             "edges": "landmark times (conservative, +-0.5 s)"}})
+                                   "length": round(r["end"] - r["start"], 3), "confidence": 0.7, "method": method,
+                                   "gates": gates})
                 e.segments.sort(key=lambda x: x["start"])
-            del idx
 
     # ------------------------------------------------------------------ output
     def result(self):

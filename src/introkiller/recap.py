@@ -1,12 +1,8 @@
-"""Recap ("previously on ...") detection: the recap replays footage of earlier episodes, so its audio is found
-INSIDE another episode of the season (not at the same place in every episode, which is why the OP/ED aligner cannot see it).
+"""Audio landmark fingerprints for the recap replay lane (spectral peak pairs).
 
-Method: audio landmark fingerprints (spectral peak pairs, 40-1500 Hz).  The head region of a target episode is matched
-against the full audio of every other episode; for every 2 s bucket of the region the best (episode, time offset) vote count
-is taken.  A recap is a run of matched buckets (>= 8 s, >= 60 % of the span matched) whose clips each come from a SINGLE
-other episode.  Buckets whose audio matches several other episodes at once are shared material (OP/ED, a recurring
-jingle) and are never labelled recap.  The recap ends at the last landmark vote of its last matched bucket (conservative).
-Cost: needs the whole audio of the other episodes (not just windows).  numpy + cv2 only.
+The head region of a target episode is matched against the full audio of
+earlier episodes. recap_lanes.lane6_full_replay applies the run, place and
+trim gates on top of Index.votes. numpy + cv2 only.
 """
 import numpy as np
 import cv2
@@ -124,37 +120,3 @@ class Index:
                         "t_last": float(tqq[sel].max() * HOP / SR) if sel.any() else (b + 1) * BUCKET * HOP / SR,
                         "n_strong": len(strong)})
         return out
-
-
-def find_recap(x_region, index, region_end, min_len=8.0, min_frac=0.6):
-    """x_region: audio of [0, region_end].  Returns dict(start,end,sources,matched_frac) or None."""
-    v = index.votes(x_region)
-    sec = BUCKET * HOP / SR
-    nb = int(np.ceil(region_end / sec))
-    # a replay lies EARLY in the target and LATE in its source; the original scene in the earlier episode matches the
-    # other way round (source earlier than target) and must not be called a recap
-    good = {d["bucket"]: d for d in v if d["n_strong"] == 1 and d["off_s"] >= 20.0 and d["t_first"] <= 150.0}
-    shared = {d["bucket"] for d in v if d["n_strong"] > 1}
-    runs, cur = [], []
-    for b in range(nb):
-        if b in good:
-            cur.append(b)
-        elif cur and b - cur[-1] <= 2 and (b + 1 in good or b + 2 in good):
-            continue
-        else:
-            if cur:
-                runs.append(cur)
-            cur = []
-    if cur:
-        runs.append(cur)
-    best = None
-    for r in runs:
-        s = good[r[0]]["t_first"]
-        e = good[r[-1]]["t_last"]
-        span_b = r[-1] - r[0] + 1
-        frac = len(r) / span_b
-        if e - s >= min_len and frac >= min_frac and not (set(range(r[0], r[-1] + 1)) & shared):
-            if best is None or (e - s) > (best["end"] - best["start"]):
-                best = {"start": s, "end": e, "sources": sorted({good[b]["ep"] for b in r}), "matched_frac": frac,
-                        "votes_min": min(good[b]["count"] for b in r)}
-    return best

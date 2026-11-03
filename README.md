@@ -59,7 +59,22 @@ The engine then checks the picture too, so a song that plays over a new scene do
   <img src="assets/scoreboard-light.svg" width="900" alt="Paired bars of found against missed. Intro 103 of 114, old and new. Credits 68 of 105 old, 85 of 105 now. Preview 0 of 57 old, 33 of 57 now. Recap 1 of 3, old and new.">
 </picture>
 
-We tested the engine on 123 episodes chosen because they are hard. It found 103 of 114 intros, 85 of 105 credits (99 with `--ocr`), 33 of 57 previews and 1 of 3 recaps. Recaps are the weakest result. A partial segment counts as found.
+We tested the engine on 123 episodes chosen because they are hard. It found 103 of 114 intros, 85 of 105 credits (99 with `--ocr`), 33 of 57 previews and 1 of 3 recaps on that set. A partial segment counts as found.
+
+### Recaps
+
+We measured recaps separately on 43 recaps. The new rule finds montage-style recaps and "Previously on" cards. It misses narrated recaps and single-scene replays. The replay method needs whole earlier episodes. The card method needs the OCR extra and is skipped cleanly without it. It covers a median 98 percent of each recap it finds.
+
+| Rule | Recaps tested | Found | False results | Worst overrun past the true end |
+|---|---:|---:|---:|---:|
+| Previous rule, given whole earlier episodes | 12 | 4 | 1 | 139.9 s |
+| New: "Previously on" card | 43 | 10 | 0 | 0.0 s |
+| New: replay of whole earlier episodes | 12 | 4 | 0 | 0.0 s |
+| New: both combined, with `--recap` | 43 | 13 | 0 | 0.0 s |
+
+The replay method ran on 12 of the 43 recaps because it needs whole episodes, so the combined figure may rise with a fuller test.
+
+The rival tables below show the previous rule, which was not rerun, so those figures are unchanged.
 
 Of the results, 31 were off by more than a second. We checked each against the video, and none cut into the story. Most were reference times (the correct times we score against) that were slightly off themselves.
 
@@ -111,7 +126,7 @@ If you use Plex, Emby or Jellyfin, start with the tools built for them. Plex and
 
 - Seven series ids in our first results were wrong. *Planetes* pointed at *Movies for Guys Who Like Movies*. The engine now checks every id.
 - Every black frame looks like every other black frame, so fades kept matching. Black no longer counts as evidence.
-- A second recap method found all three recaps, then cut a second of story from one. We dropped it.
+- The old recap rule reported recaps that ran past the true end and made false reports. The new rule reports only montage replays and "Previously on" cards with no overrun.
 
 ## Limits
 

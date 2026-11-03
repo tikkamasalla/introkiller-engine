@@ -197,7 +197,7 @@ def build_parser():
                         "never a bulk download). SLUG is the AnimeThemes anime slug for the season. "
                         "A theme result is used only for intro or credits the main pass did not find, "
                         "trimmed 2 s at each end. Anime only.")
-    p.add_argument("--recap", action="store_true", help="also look for recaps that replay earlier audio (decodes whole episodes)")
+    p.add_argument("--recap", action="store_true", help="also look for recaps: a Previously card (needs the ocr extra, skipped cleanly without it) and replayed audio from whole earlier episodes of the same season")
     p.add_argument("--cache", help="keep decoded windows in this folder, for faster repeat runs")
     p.add_argument("--keep-cache", action="store_true", help="do not delete the default cache folder at the end")
     p.add_argument("--config", help="JSON object overriding detection settings (see pipeline.CFG)")

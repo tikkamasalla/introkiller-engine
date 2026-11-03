@@ -44,6 +44,21 @@ We tuned the engine on these same episodes, so this is a development score and n
 
 With `--ocr`, credits rise from 85 to 99 of 105. It also adds 7 credit rolls on episodes whose reference lists no credits. They are real on frames, though the rules score them as false. Text starts run late, up to about two minutes on *The Glory*, which errs on the safe side.
 
+### Recaps on 43 episodes
+
+The scoreboard above uses 3 recaps. We measured the recap rule separately on 43 recaps with 40 negatives. The previous rule found 4 of 12 recaps when given whole earlier episodes, with 1 false result and overruns of up to 139.9 s. The new rule with `--recap` combines a "Previously on" card method and a method that matches replayed audio against whole earlier episodes. It finds montage-style recaps and "Previously on" cards. It misses narrated recaps and single-scene replays. The replay method needs whole earlier episodes of the same season. The card method needs the OCR extra and is skipped cleanly when it is missing.
+
+| Rule | Recaps tested | Found | False results | Worst overrun past the true end |
+|---|---:|---:|---:|---:|
+| Previous rule, given whole earlier episodes | 12 | 4 | 1 | 139.9 s |
+| New: "Previously on" card | 43 | 10 | 0 | 0.0 s |
+| New: replay of whole earlier episodes | 12 | 4 | 0 | 0.0 s |
+| New: both combined, with `--recap` | 43 | 13 | 0 | 0.0 s |
+
+The replay method ran on 12 of the 43 recaps because it needs whole episodes, so the combined figure may rise with a fuller test.
+
+It covers a median 98 percent of each recap it finds. The rival tables below show the previous rule on their own episodes. The new rule was not rerun there, so those figures are unchanged.
+
 When a season has too few episodes for the main pipeline, pass --themes SLUG with the AnimeThemes slug. The engine fetches only that show from AnimeThemes.moe over GraphQL, caches the songs, and tries openings where intro is missing and endings where credits are missing. A result is kept only if it passes a correlation check, which produced no real false matches across 2,200 pairs from different shows and 648 regions within the same shows. It is then trimmed 2 seconds at each end. It never replaces a main result. On 123 episodes the main pass finds 103 of 114 intros and 85 of 105 credits. With themes it finds 109 intros and 85 credits, adding 8 segments. Blood+ intros go from 0 of 5 to 5 of 5. The 2 added credits are real endings missing from the reference. Alone it finds 82 intros and 80 credits with no real wrong results. It is anime-only, needs network and local cache, handles one show per run, and finds less alone than the main pipeline.
 
 <details>
@@ -76,7 +91,7 @@ Each of these happened, and each left a rule behind.
 - A streamed decode silently lost its first 5.12 s on one episode. Rule: a decode that comes back short is refused unless the audio ends there.
 - A black frame hashes to all zeros, so black always matched black. Rule: black counts toward the share, never as evidence of where a segment starts or ends.
 - Seven series ids in our first draft were wrong. *Planetes* pointed at *Movies for Guys Who Like Movies*, and *Mobile Suit Gundam* at *Billy*. Rule: every id is checked by name and by whether the episode exists.
-- Recaps scored 1 of 3, and that one covers 38% of the real recap. A second method found all three, then ate about 1 s of story on one. We dropped it.
+- The old recap rule made false reports and ran past the true end. The new rule finds montage replays and "Previously on" cards with no overrun.
 
 ## The demo: Pioneer One
 
