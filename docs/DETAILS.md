@@ -163,6 +163,16 @@ Media Preview Generator ran on 31 episodes with its own test harness, without ch
 
 On our default run, Media Preview Generator won credits coverage, including all 3 episodes each of *The Glory*, *Drive to Survive* and *Ideon*, where matching found nothing. `--ocr` closes the gap: it finds the same 9 episodes, for 25 of 26 against its 18. Those 9 start up to 124 s late, which errs on the safe side. The error rows are for the default run only. Media Preview Generator also found 5 real credit rolls that our reference leaves out, on *Red Dwarf* and *Detective Conan*. We counted those for it. `--ocr` finds 2 of them, and our default run finds none. Its own [evaluation notes](https://github.com/stevezau/media_preview_generator/blob/dev/tools/markers_eval/README.md) report 91 useful, 12 wrong and 15 missed intros on 118 episodes, and 59 of 80 credits within 10 s. Those use different episodes and looser rules, so they do not compare with our table.
 
+ScenePass v0.9.5, closed-source, ran on the same 31 episodes as Media Preview Generator. By default it applies nothing; finds wait as held-for-review for confirmation. The table shows defaults and held-for-review. With held it finds 25 of 27 intros to our 27, with 1 wrong skip to our 0 and median start 1.02 s to our 0.79 s. Recaps are its win, 3 of 3 to our 1 of 3, with 5 false and 8 wrong to our 0. Only 3 recaps were in the test, a small sample. We tuned here and it did not, so this favours us.
+
+| | ScenePass defaults | ScenePass held | IntroKiller Engine |
+|---|---|---|---|
+| Intros, of 27 | 0 | 25 | 27 |
+| Intros wrong after known errors | 0 | 1 | 0 |
+| Median start error | not measured | 1.02 s | 0.79 s |
+| Recaps, of 3 | 0 | 3 | 1 |
+| Recaps false / wrong | 0 / 0 | 5 / 8 | 0 / 0 |
+
 The other projects we looked at: [needle](https://github.com/aksiksi/needle), [Skiptro](https://github.com/MikeSiLVO/skiptro-releases), [AniChapters](https://github.com/56cla/AniChapters), [iina-skip-intro](https://github.com/pparanoiidd/iina-skip-intro), [ScenePass](https://github.com/lynxstrike/ScenePass.repo), [EmbyCredits](https://github.com/yocksers/EmbyCredits), [Kodi Intro Skipper](https://github.com/CvH/kodi-intro-skipper), [Skip-emby](https://github.com/dandan658/Skip-emby), [intro-skipper-node](https://github.com/GOvEy1nw/intro-skipper-node), [Mydia](https://github.com/getmydia/mydia), [analyzer](https://github.com/zaentrum/analyzer), [contentDetectron](https://github.com/fertlopus/contentDetectron), [end-credits-detection](https://github.com/thiago-franco/end-credits-detection), [Credit Scout](https://github.com/PatrickKalkman/credit-scout), [credroll](https://github.com/debrup416/credroll), [Content-Seperator](https://github.com/dhruv7539/Content-Seperator), [series-player](https://github.com/althropic/series-player), [plex-credits-detect](https://github.com/cjmanca/plex-credits-detect) (retired) and [Jellyfin Media Analyzer](https://github.com/endrl/jellyfin-plugin-media-analyzer) (archived).
 
 ## What you can do with the results

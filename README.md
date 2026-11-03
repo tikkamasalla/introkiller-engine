@@ -73,6 +73,8 @@ skipmark, tested on 123 episodes, found 112 of 114 intros to our 103, and 105 of
 
 Media Preview Generator, tested on 31 episodes, found 20 of 27 intros to our 27, and 18 of 26 credits to our 16 (25 with `--ocr`). Its results were off by more than a second 24 times, against our 10. It ran without the chapters and online sources it normally uses.
 
+We also tested ScenePass v0.9.5, a closed-source tool, on the same 31 episodes as Media Preview Generator. By default it holds every result for your review and applies none. Counting held results, it found 25 of 27 intros to our 27, with 1 wrong skip to our 0. It won on recaps, 3 of 3 to our 1 of 3, though only 3 recaps were tested and it also produced 5 false recaps to our 0. We tuned on these episodes and ScenePass did not, so the test favours us.
+
 If you use Plex, Emby or Jellyfin, start with the tools built for them. Plex and Emby include this feature, and [Intro Skipper](https://github.com/intro-skipper/intro-skipper) and [Media Preview Generator](https://github.com/stevezau/media_preview_generator) add a skip button to your server. This engine does not. Use it when you want the times themselves, for mpv, Kodi, your own player or a database. The [Stremio patches](https://github.com/tikkamasalla/stremio-morphe-patches) already use them.
 
 ## Mistakes we found and fixed

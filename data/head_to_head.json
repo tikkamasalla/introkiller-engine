@@ -156,6 +156,62 @@
   "introkiller_recap": {
    "key": 3,
    "hit": 1
+  },
+  "scenepass": {
+   "episodes": 31,
+   "settings": "v0.9.5, closed source, defaults apply nothing, held-for-review needs confirmation; same 31 episodes as media_preview_generator test",
+   "note": "IntroKiller was tuned on these episodes, ScenePass was not, so this test favours IntroKiller.",
+   "intro": {
+    "key": 27,
+    "scenepass_defaults": {
+     "hit": 0,
+     "miss": 27,
+     "false": 0,
+     "wrong_raw": 0,
+     "wrong_adjusted": 0,
+     "median_start_s": null
+    },
+    "scenepass_with_held": {
+     "hit": 25,
+     "miss": 2,
+     "false": 0,
+     "wrong_raw": 11,
+     "wrong_adjusted": 1,
+     "median_start_s": 1.02
+    },
+    "introkiller": {
+     "hit": 27,
+     "miss": 0,
+     "false": 0,
+     "wrong_raw": 10,
+     "wrong_adjusted": 0,
+     "median_start_s": 0.79
+    }
+   },
+   "recap": {
+    "key": 3,
+    "scenepass_defaults": {
+     "hit": 0,
+     "miss": 3,
+     "false": 0,
+     "wrong_raw": 0,
+     "wrong_adjusted": 0
+    },
+    "scenepass_with_held": {
+     "hit": 3,
+     "miss": 0,
+     "false": 5,
+     "wrong_raw": 8,
+     "wrong_adjusted": 8
+    },
+    "introkiller": {
+     "hit": 1,
+     "miss": 2,
+     "false": 0,
+     "wrong_raw": 0,
+     "wrong_adjusted": 0
+    }
+   }
   }
  }
 }
