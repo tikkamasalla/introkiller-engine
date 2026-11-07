@@ -8,7 +8,7 @@ The intro rarely starts at zero, and a preview can start on the frame right afte
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="../assets/anatomy-dark.svg">
-  <img src="../assets/anatomy-light.svg" width="900" alt="Two episode timelines. Record of Ragnarok season 3 episode 11: recap 0:17 to 0:45, intro 1:30 to 2:57, credits 22:11 to 24:59. Blood-C episode 1: intro 1:12 to 2:41, credits 22:08 to 23:38, preview 23:38 to 24:09.">
+  <img src="../assets/anatomy-light.svg" width="100%" alt="Two episode timelines. Record of Ragnarok season 3 episode 11: recap 0:17 to 0:45, intro 1:30 to 2:57, credits 22:11 to 24:59. Blood-C episode 1: intro 1:12 to 2:41, credits 22:08 to 23:38, preview 23:38 to 24:09.">
 </picture>
 
 ## The scoreboard
@@ -17,7 +17,7 @@ The table shows how often the engine found, missed or wrongly reported each kind
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="../assets/scoreboard-dark.svg">
-  <img src="../assets/scoreboard-light.svg" width="900" alt="Paired bars of found against missed. Intro 103 of 114, old and new. Credits 68 of 105 old, 85 of 105 now. Preview 0 of 57 old, 33 of 57 now. Recap 1 of 3, old and new.">
+  <img src="../assets/scoreboard-light.svg" width="100%" alt="Paired bars of found against missed. Intro 103 of 114, old and new. Credits 68 of 105 old, 85 of 105 now. Preview 0 of 57 old, 33 of 57 now. Recap 1 of 3, old and new.">
 </picture>
 
 | On 123 episodes | Found | Missed | False | Flagged | Ate story, after checking frames |
@@ -65,7 +65,7 @@ When a season has too few episodes for the main pipeline, pass --themes SLUG wit
 <summary>Every set, including the zeros</summary>
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="../assets/shows-dark.svg">
-  <img src="../assets/shows-light.svg" width="900" alt="A table of 23 test sets with found out of reference counts. Zeros include Fawlty Towers and Blood+ intros, and Ideon, The Glory, Drive to Survive and film credits.">
+  <img src="../assets/shows-light.svg" width="100%" alt="A table of 23 test sets with found out of reference counts. Zeros include Fawlty Towers and Blood+ intros, and Ideon, The Glory, Drive to Survive and film credits.">
 </picture>
 A dash means the reference has none of that type, and +3f means three false results. The numbers are in <a href="../data/scoreboard.json">data/scoreboard.json</a>.
 </details>
@@ -76,7 +76,7 @@ Across the 117 episodes with published times, the engine finds 5.4 of 51.0 hours
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="../assets/hours-dark.svg">
-  <img src="../assets/hours-light.svg" width="900" alt="5.4 hours out of 51.0 hours of runtime, 10.6 percent, across 117 episodes of 22 shows. Share per show runs from 16.6 percent for Record of Ragnarok to 1.7 percent for Fawlty Towers.">
+  <img src="../assets/hours-light.svg" width="100%" alt="5.4 hours out of 51.0 hours of runtime, 10.6 percent, across 117 episodes of 22 shows. Share per show runs from 16.6 percent for Record of Ragnarok to 1.7 percent for Fawlty Towers.">
 </picture>
 
 The 245 published segments are 2.71 hours of credits, 2.46 of intros, 0.22 of previews and one 27-second recap. The median intro runs 88 s and the median credits 89 s. A low share can mean a show has less to skip, or that the engine missed it: Fawlty Towers has a title sequence, and our score for it is 0 of 4.
@@ -104,7 +104,7 @@ introkiller scan pioneer --recap --ocr
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="../assets/demo-dark.svg">
-  <img src="../assets/demo-light.svg" width="900" alt="Six timelines of Pioneer One. Recaps found on episodes 2, 3 and 5, intros on episodes 3, 4, 5 and 6, no credits on any.">
+  <img src="../assets/demo-light.svg" width="100%" alt="Six timelines of Pioneer One. Recaps found on episodes 2, 3 and 5, intros on episodes 3, 4, 5 and 6, no credits on any.">
 </picture>
 
 | Episode | Recap found | Intro found | Title sequence by eye | Result |

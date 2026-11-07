@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
-"""Rebuild every graphic in assets/ from the files in data/. Standard library only.
+"""Rebuild the data charts in assets/ from the files in data/. Standard library only.
 
     python tools/build_charts.py
+
+The animated hero and feature cards come from tools/build_cards.py and share this palette.
 """
 import collections
 import csv
@@ -14,13 +16,15 @@ DATA, OUT = ROOT / "data", ROOT / "assets"
 SANS = "ui-sans-serif,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif"
 MONO = "ui-monospace,'SF Mono','Cascadia Mono',Consolas,Menlo,monospace"
 KINDS = ("recap", "intro", "credits", "preview")
+# One palette for every graphic: intro violet, credits amber, preview green, recap pink.
+# The heat ramp runs from the empty track through blue, violet and pink to amber.
 THEMES = {
-    "light": dict(panel="#fbf8f3", edge="#e8e0d4", ink="#241b12", ink2="#5f5344", mute="#8a7d6d", story="#e9e2d6",
-                  heat0=(240, 233, 222), heat1=(226, 150, 50), heat2=(150, 62, 14),
-                  intro="#d9730d", credits="#a83a14", preview="#c99a12", recap="#b0553f"),
-    "dark": dict(panel="#17130f", edge="#2e2720", ink="#f5eee4", ink2="#c4b7a6", mute="#928573", story="#2b251e",
-                 heat0=(35, 30, 24), heat1=(196, 110, 22), heat2=(255, 190, 80),
-                 intro="#d07a12", credits="#a33d18", preview="#ad8c14", recap="#c25f6c"),
+    "light": dict(panel="#ffffff", panel2="#f1f4fb", edge="#dfe4f0", ink="#141a2e", ink2="#4a5474", mute="#8790ab", story="#e7ebf5",
+                  heat=("#e7ebf5", "#2b74e6", "#6a4ff2", "#d23c98", "#d98200"),
+                  intro="#6a4ff2", credits="#d98200", preview="#16a150", recap="#d23c98"),
+    "dark": dict(panel="#121a2e", panel2="#0c1222", edge="#243050", ink="#f1f4ff", ink2="#b3bcd9", mute="#7883a6", story="#1f2840",
+                 heat=("#1f2840", "#5aa8ff", "#8f7dff", "#f774c9", "#ffb84d"),
+                 intro="#8f7dff", credits="#ffb84d", preview="#4fdc85", recap="#f774c9"),
 }
 
 
@@ -38,27 +42,35 @@ def rect(x, y, w, h, fill, rx=0, extra=""):
 
 
 def svg(w, h, t, body, title, desc, style=""):
+    bg = ('<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="%s"/><stop offset="1" stop-color="%s"/>'
+          '</linearGradient></defs>' % (t["panel"], t["panel2"]))
     return ('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 %d %d" width="%d" height="%d" role="img" aria-label="%s">'
-            '<title>%s</title><desc>%s</desc>%s%s%s</svg>\n'
-            % (w, h, w, h, esc(title), esc(title), esc(desc), ("<style>%s</style>" % style) if style else "",
-               rect(0.5, 0.5, w - 1, h - 1, t["panel"], 14, 'stroke="%s"' % t["edge"]), "".join(body)))
+            '<title>%s</title><desc>%s</desc>%s%s%s%s</svg>\n'
+            % (w, h, w, h, esc(title), esc(title), esc(desc), bg, ("<style>%s</style>" % style) if style else "",
+               rect(0.75, 0.75, w - 1.5, h - 1.5, "url(#bg)", 18, 'stroke="%s" stroke-width="1.5"' % t["edge"]), "".join(body)))
 
 
-def heat_color(t, v):
-    """v from 0 to 9, one hue: faint, then amber, then the far end of the ramp."""
-    a = v / 9.0
-    lo, hi, f = (t["heat0"], t["heat1"], a / 0.6) if a < 0.6 else (t["heat1"], t["heat2"], (a - 0.6) / 0.4)
-    return "#%02x%02x%02x" % tuple(round(lo[i] + (hi[i] - lo[i]) * f) for i in range(3))
+def heat_color(t, v, top=None):
+    """v from 0 to 9: empty track, then blue and pink, ending in the segment colour (intro or credits)."""
+    h = t["heat"]
+    stops = list(zip((0, 3, 6, 9), (h[0], h[1], h[3], top or t["intro"])))
+    for (a, ca), (b, cb) in zip(stops, stops[1:]):
+        if v <= b:
+            f = (v - a) / (b - a)
+            lo = [int(ca[i:i + 2], 16) for i in (1, 3, 5)]
+            hi = [int(cb[i:i + 2], 16) for i in (1, 3, 5)]
+            return "#%02x%02x%02x" % tuple(round(lo[i] + (hi[i] - lo[i]) * f) for i in range(3))
+    return stops[-1][1]
 
 
-def strip(t, digits, x, y, w, h):
+def strip(t, digits, x, y, w, h, top=None):
     """Draw one row of per-second digits as merged runs."""
     out, i, n = [], 0, len(digits)
     while i < n:
         j = i
         while j < n and digits[j] == digits[i]:
             j += 1
-        out.append(rect(x + i * w / n, y, (j - i) * w / n + 0.2, h, heat_color(t, int(digits[i]))))
+        out.append(rect(x + i * w / n, y, (j - i) * w / n + 0.2, h, heat_color(t, int(digits[i]), top)))
         i = j
     return out
 
@@ -68,24 +80,6 @@ def clock(sec):
 
 
 # ------------------------------------------------------------------ graphics
-def hero(t, heat):
-    W, H = 1000, 300
-    b = [text(44, 92, "IntroKiller Engine", 58, t["ink"], weight=800),
-         text(46, 134, "Also kills credits, previews and recaps.", 25, t["ink2"], weight=500),
-         text(46, 168, "Never touches your files.", 25, t["ink"], weight=700)]
-    x0, y0, w, rh = 44, 192, W - 88, 6.6
-    b.append('<g>')
-    for i, row in enumerate(heat["rows"]):
-        b += strip(t, row["head"], x0, y0 + i * (rh + 0.6), w, rh)
-    b.append('</g>')
-    b.append(rect(x0, y0 - 3, 2.5, 12 * (rh + 0.6) + 6, t["ink"], 1, 'class="scan"'))
-    style = (".scan{animation:scan 9s linear infinite}"
-             "@keyframes scan{from{transform:translateX(0)}to{transform:translateX(%dpx)}}"
-             "@media (prefers-reduced-motion:reduce){.scan{animation:none;opacity:0}}" % (w - 2))
-    return svg(W, H, t, b, "IntroKiller Engine", "Project title and tagline over a strip of real data: twelve episodes, first five minutes, "
-               "with the audio they share drawn as bright bands.", style)
-
-
 def heat_chart(t, heat):
     W, top, rh, gap, left = 1000, 96, 22, 3, 62
     n = len(heat["rows"])
@@ -101,7 +95,7 @@ def heat_chart(t, heat):
         y = top - 12 + i * (rh + gap)
         b.append(text(left - 10, y + rh - 6, row["label"], 14, t["ink2"], "end", family=MONO))
         b += strip(t, row["head"], left, y, pw, rh)
-        b += strip(t, row["tail"], x2, y, pw, rh)
+        b += strip(t, row["tail"], x2, y, pw, rh, t["credits"])
     ly = top + n * (rh + gap) + 8
     b.append(text(left, ly + 8, "The intro starts anywhere from 0:01 to 2:39.", 15, t["ink"], weight=600))
     b.append(text(x2, ly + 8, "The credits stay put, counted from the end.", 15, t["ink"], weight=600))
@@ -148,7 +142,7 @@ def scoreboard(t, sc):
     rh, block = 22, 78
     H = 60 + block * len(rows) + 2
     b = [rect(left, 20, 20, 14, t["intro"], 3), text(left + 27, 32, "found", 14, t["ink2"]),
-         rect(left + 90, 20.5, 19, 13, "none", 3, 'stroke="%s" stroke-width="1.4"' % t["mute"]), text(left + 116, 32, "missed", 14, t["ink2"]),
+         rect(left + 90, 20, 20, 14, t["story"], 3), text(left + 116, 32, "missed", 14, t["ink2"]),
          text(W - 30, 32, "false / flagged", 14, t["ink2"], "end")]
     for i, (k, lab) in enumerate(rows):
         y = 60 + i * block
@@ -160,7 +154,7 @@ def scoreboard(t, sc):
             hw, mw = v["hit"] * scale, v["miss"] * scale
             if v["hit"]:
                 b.append(rect(left, yy, hw - 1, rh, t[k], 3))
-            b.append(rect(left + hw + 1, yy + 0.7, max(mw - 2, 1), rh - 1.4, "none", 3, 'stroke="%s" stroke-width="1.4"' % t["mute"]))
+            b.append(rect(left + hw + 1, yy, max(mw - 1, 1), rh, t["story"], 3))
             b.append(text(left + hw + mw + 8, yy + 16, "%d of %d" % (v["hit"], v["hit"] + v["miss"]), 14, t["ink"], weight=600 if j else 400))
             b.append(text(W - 30, yy + 16, "%d / %d" % (v["false"], v["flagged"]), 14, t["ink2"], "end", family=MONO))
     return svg(W, H, t, b, "Scoreboard, old version against current", "Paired bars for intro, credits, preview and recap on 123 episodes, showing how many were found and missed, plus false results and flagged segments.")
@@ -265,7 +259,7 @@ def main():
     demo_file = DATA / "demo_pioneer_one.json"
     demo = json.loads(demo_file.read_text(encoding="utf-8")) if demo_file.exists() else None
     for mode, t in THEMES.items():
-        items = {"hero": hero(t, heat), "heat": heat_chart(t, heat), "anatomy": anatomy(t, anat), "scoreboard": scoreboard(t, sc),
+        items = {"heat": heat_chart(t, heat), "anatomy": anatomy(t, anat), "scoreboard": scoreboard(t, sc),
                  "shows": show_grid(t, sc), "hours": hours_chart(t, rows)}
         if demo:
             items["demo"] = demo_chart(t, demo)
