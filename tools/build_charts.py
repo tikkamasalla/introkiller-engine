@@ -16,16 +16,13 @@ DATA, OUT = ROOT / "data", ROOT / "assets"
 SANS = "ui-sans-serif,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif"
 MONO = "ui-monospace,'SF Mono','Cascadia Mono',Consolas,Menlo,monospace"
 KINDS = ("recap", "intro", "credits", "preview")
-# One palette for every graphic: intro violet, credits amber, preview green, recap pink.
-# The heat ramp runs from the empty track through blue, violet and pink to amber.
-THEMES = {
-    "light": dict(panel="#ffffff", panel2="#f1f4fb", edge="#dfe4f0", ink="#141a2e", ink2="#4a5474", mute="#8790ab", story="#e7ebf5",
-                  heat=("#e7ebf5", "#2b74e6", "#6a4ff2", "#d23c98", "#d98200"),
-                  intro="#6a4ff2", credits="#d98200", preview="#16a150", recap="#d23c98"),
-    "dark": dict(panel="#121a2e", panel2="#0c1222", edge="#243050", ink="#f1f4ff", ink2="#b3bcd9", mute="#7883a6", story="#1f2840",
-                 heat=("#1f2840", "#5aa8ff", "#8f7dff", "#f774c9", "#ffb84d"),
-                 intro="#8f7dff", credits="#ffb84d", preview="#4fdc85", recap="#f774c9"),
-}
+# The charts sit on the same charcoal frame as the animated cards in assets/src, in both GitHub themes.
+# Segment colours match the feature accents: intro teal, credits amber, preview green, recap coral.
+# The heat ramp is neutral and ends in the segment colour.
+CHARCOAL = dict(panel="#16181c", panel2="#0f1013", edge="#2a2d33", ink="#f1f3f5", ink2="#aeb4bc", mute="#6b7079", story="#24272d",
+                  heat=("#24272d", "#3a3e45", "#4a4f57", "#5d636c", "#7d838d"),
+                  intro="#2ec4b6", credits="#f5a524", preview="#3fb950", recap="#ff6b5a")
+THEMES = {"light": CHARCOAL, "dark": CHARCOAL}
 
 
 def esc(s):
@@ -47,7 +44,7 @@ def svg(w, h, t, body, title, desc, style=""):
     return ('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 %d %d" width="%d" height="%d" role="img" aria-label="%s">'
             '<title>%s</title><desc>%s</desc>%s%s%s%s</svg>\n'
             % (w, h, w, h, esc(title), esc(title), esc(desc), bg, ("<style>%s</style>" % style) if style else "",
-               rect(0.75, 0.75, w - 1.5, h - 1.5, "url(#bg)", 18, 'stroke="%s" stroke-width="1.5"' % t["edge"]), "".join(body)))
+               rect(0.5, 0.5, w - 1, h - 1, "url(#bg)", 4, 'stroke="%s" stroke-width="1"' % t["edge"]), "".join(body)))
 
 
 def heat_color(t, v, top=None):

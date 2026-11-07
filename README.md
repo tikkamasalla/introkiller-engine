@@ -1,7 +1,7 @@
 <p>
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/hero-dark.svg">
-  <img src="assets/hero-light.svg" width="100%" alt="IntroKiller Engine. Also kills credits, previews and recaps. Never touches your files. Below the title, twelve episodes of one season, first five minutes each, with the audio they share coloured in.">
+  <source srcset="assets/hero@2x.webp" type="image/webp">
+  <img src="assets/hero.png" width="100%" alt="IntroKiller Engine. Twelve real episodes of one season, first five minutes each. A sweep lights the seconds of audio the episodes share, and the intro band sits at a different place in each row.">
 </picture>
 </p>
 
@@ -61,8 +61,8 @@ The engine compares the audio of the episodes in a season and looks for the part
 
 <p>
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/align-dark.svg">
-  <img src="assets/align-light.svg" width="100%" alt="Two episodes' audio, filtered to the low band. A cross-correlation curve is drawn offset by offset until its peak, then the second episode slides by that offset and the stretch both carry lights up.">
+  <source srcset="assets/align@2x.webp" type="image/webp">
+  <img src="assets/align.png" width="100%" alt="Two episodes' audio envelopes, filtered to 80 Hz to 1.5 kHz. A cross-correlation curve is drawn until its peak, the second episode slides by that offset, and the shared stretch lights up.">
 </picture>
 </p>
 
@@ -81,8 +81,8 @@ Each row is an episode of *Legend of the Galactic Heroes: Die Neue These*, and a
 
 <p>
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/edges-dark.svg">
-  <img src="assets/edges-light.svg" width="100%" alt="A strip of frames around the start of an intro. The edge found from the audio walks back frame by frame across frames that match other episodes and a black frame, stops at the first story frame, and settles where the black ends.">
+  <source srcset="assets/edges@2x.webp" type="image/webp">
+  <img src="assets/edges.png" width="100%" alt="A film strip around the start of an intro. The edge from the audio walks back over frames that match other episodes and a black frame, stops at the first story frame, and settles where the black ends.">
 </picture>
 </p>
 
@@ -94,8 +94,8 @@ The engine then checks the picture too, so a song that plays over a new scene do
 
 <p>
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/previews-dark.svg">
-  <img src="assets/previews-light.svg" width="100%" alt="The last minutes of three episodes, lined up at the end of the file. Their previews have new footage but the same length and a shared card, so the preview is reported as a button only.">
+  <source srcset="assets/previews@2x.webp" type="image/webp">
+  <img src="assets/previews.png" width="100%" alt="The last minutes of three episodes, lined up at the end of the file. The previews have new footage but the same length and the same title card, and the result is a Skip Preview button.">
 </picture>
 </p>
 
@@ -105,8 +105,8 @@ A next-episode preview has new footage each time, so the engine matches its shap
 
 <p>
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/recaps-dark.svg">
-  <img src="assets/recaps-light.svg" width="100%" alt="Short pieces from episodes 1, 2 and 3 are found again at the start of episode 4. Together they form a run of replayed audio, which is reported as the recap.">
+  <source srcset="assets/recaps@2x.webp" type="image/webp">
+  <img src="assets/recaps.png" width="100%" alt="Short pieces from episodes 1, 2 and 3 are found again at the start of episode 4. Together they form a 10 second run of replayed audio, which is reported as the recap.">
 </picture>
 </p>
 
@@ -116,8 +116,8 @@ With `--recap`, the engine matches audio fingerprints from the start of an episo
 
 <p>
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/ocr-dark.svg">
-  <img src="assets/ocr-light.svg" width="100%" alt="Credits roll on a dark frame and each text line is boxed as it is read. On the timeline, a text run that reaches the end of the file is kept, and a run that stops early is refused.">
+  <source srcset="assets/ocr@2x.webp" type="image/webp">
+  <img src="assets/ocr.png" width="100%" alt="Credits roll on a dark frame and each line is boxed as it is read. A text run that reaches the end of the file is kept, and one that stops early is refused.">
 </picture>
 </p>
 
@@ -136,8 +136,8 @@ When a show has too few episodes for the main pipeline, `--themes SLUG` tries it
 
 <p>
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/exports-dark.svg">
-  <img src="assets/exports-light.svg" width="100%" alt="The engine writes times.json, then exports an EDL file for Kodi, an EDL for mpv and a chapters file for FFmpeg. Intro and credits go into every file, and the preview stays out of the two skip lists.">
+  <source srcset="assets/exports@2x.webp" type="image/webp">
+  <img src="assets/exports.png" width="100%" alt="A terminal runs introkiller scan with three export formats. The times print, and times.json, a Kodi EDL, an mpv EDL and an FFmpeg chapters file appear.">
 </picture>
 </p>
 
