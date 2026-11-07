@@ -3,7 +3,7 @@
 
     python tools/build_charts.py
 
-The animated hero and feature cards come from tools/build_cards.py and share this palette.
+The animated hero and feature cards come from assets/src (see its README) and share the charcoal frame.
 """
 import collections
 import csv
