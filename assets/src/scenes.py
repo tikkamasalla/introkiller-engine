@@ -289,7 +289,8 @@ def ocr():
     sc_cls = sc.k([(0, "transform:translateY(0)"), (8, "transform:translateY(-%dpx)" % period)], ease="linear")
     b.append('<div class="player" style="left:0;top:8px;width:%dpx;height:%dpx;background:#050506"><div class="%s" style="position:absolute;inset:0">%s</div>'
              '<div style="position:absolute;inset:0;background:linear-gradient(180deg,#050506,transparent 18%%,transparent 82%%,#050506)"></div>'
-             '<div class="mono" style="position:absolute;left:12px;top:10px;font-size:10px;color:var(--acc)">text detector  ·  320 x 180 keyframes</div></div>' % (fw, fh, sc_cls, "".join(roll)))
+             '<div style="position:absolute;left:0;right:0;top:0;height:30px;background:#050506;box-shadow:0 8px 14px #050506;border-bottom:1px solid rgba(255,255,255,.06)">'
+             '<div class="mono" style="position:absolute;left:12px;top:10px;font-size:10px;color:var(--acc)">text detector  ·  320 x 180 keyframes</div></div></div>' % (fw, fh, sc_cls, "".join(roll)))
     # timeline of the tail
     rx, rw = 476, 340
     cases = [("kept", "reaches the end of the file", 0.42, 1.0, 40, "#3fb950"), ("refused", "stops before the end", 0.2, 0.7, 150, "#e5534b")]
@@ -347,12 +348,17 @@ def exports():
 SCENES = {"hero": hero, "align": align, "edges": edges, "previews": previews, "recaps": recaps, "ocr": ocr, "exports": exports}
 
 
+# Settled moments for the PNG fallbacks: every part of the scene is on screen and nothing is mid-transition.
+STILLS = {"hero": 5.0, "align": 6.0, "edges": 6.2, "previews": 6.0, "recaps": 6.0, "ocr": 5.0, "exports": 6.0}
+
+
 def main():
     out = Path(sys.argv[1])
     out.mkdir(parents=True, exist_ok=True)
     data = Path(sys.argv[2]) if len(sys.argv) > 2 else DATA
     for name in (sys.argv[3:] or SCENES):
         sc = SCENES[name](data) if name == "hero" else SCENES[name]()
+        sc.still = STILLS.get(name)
         (out / (name + ".html")).write_text(sc.html(), encoding="utf-8", newline="\n")
         print("scene", name)
 
